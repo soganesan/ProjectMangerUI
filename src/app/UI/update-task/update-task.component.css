@@ -1,0 +1,73 @@
+.taskManagerHeading
+{    
+    padding-left: 5px;
+}
+
+.ui-slider-input {
+    display : none !important;
+}
+
+.borderless
+{
+    border:none;
+}
+
+.table thead tr th, .table tbody tr td {
+    border: none;
+}
+
+.tdSpace
+{
+    width:125px;
+}
+
+.inputStyle
+{
+    width:250px;
+}
+
+.inputStyleForDD
+{
+    height: 25px;
+}
+
+.inputStyleColspan
+{
+    width:335px;
+}
+
+
+
+.slider {
+    -webkit-appearance: none;
+    width: 250px;
+    height: 10px;
+    border-radius: 5px;
+    background: grey;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #337ab7;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}

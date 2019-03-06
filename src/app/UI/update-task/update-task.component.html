@@ -1,0 +1,202 @@
+
+  <div>
+        <form name="updateForm">
+         <table class="table borderless">
+  
+            <tr>
+                <td class="tdSpace"><label><strong>Project:</strong></label></td>
+                <td><input id="txtProject" name="project" type="text" required  
+                           class="inputStyle" [(ngModel)]="item.ProjectName" readonly> </td>
+                <td>
+                    <button id="btnSearchProject" name="btnSearchProject" data-toggle="modal" 
+                  data-target="#projectModal" [disabled]="item.Deleted"
+                      (click)="GetAllProjects()" style="height:30px;" class="btn btn-primary" type="button">Search</button>
+                </td>
+            </tr>
+  
+           <tr>
+             <td class="tdSpace"><label><strong>Task:</strong></label></td>
+             <td colspan="2">
+                 <input id="txtTask" name="task" type="text" required  class="inputStyleColspan" 
+                 [(ngModel)]="item.TaskName"></td>
+           </tr>
+           <tr>
+             <td></td>
+              <td class="tdSpace2">
+                  <input name="includeParentTask" type="checkbox" [(ngModel)]="item.IsParent" [disabled]="item.Deleted">&nbsp;
+                  <label class="smallLabel">Parent Task</label>
+              </td>
+           </tr>
+           <tr>
+             <td class="tdSpace"><label><strong>Priority:</strong></label></td>
+             <td class="inputStyle"><input name="range" type="range" min="0" max="30" step="1" value="0" 
+                        class="slider inputStyle"
+                        oninput="rangeOutput.value = range.value"
+                        [(ngModel)]="item.Priority" readonly="item.Deleted"></td>
+             <td><output id="rangeOutput" name="rangeOutput" onloadstart="0" style="padding-top: 0px !important"></output></td>
+           </tr>
+           <tr>
+              <td class="tdSpace"><label><strong>Parent Task:</strong></label></td>
+              <td><input id="txtParentTask" name="parentTask" [disabled]="!item.IsParent" readonly type="text" required  class="inputStyle" [(ngModel)]="item.ParentTask"></td>
+              <td>                  
+                  <button id="btnSearchPTask" name="btnSearchPTask" data-toggle="modal" [disabled]="!item.IsParent" 
+                  data-target="#taskModal" [disabled]="item.Deleted"
+                       style="height:30px;" class="btn btn-primary" type="button">Search</button>
+              </td>
+           </tr>
+           <tr>
+               <td class="tdSpace"><label><strong>Start Date:</strong></label></td>
+               <td colspan="2"><input id="txtStartDate" type="datetime-local" class="inputStyleColspan" required 
+                  [(ngModel)]="item.StartDate" name="StartDate" [disabled]="item.Deleted"></td>
+           </tr>
+           <tr>
+               <td class="tdSpace"><label><strong>End Date:</strong></label></td>
+               <td colspan="2"><input id="txtEndDate" type="datetime-local" class="inputStyleColspan" required 
+                  [(ngModel)]="item.EndDate" name="EndDate" [disabled]="item.Deleted"></td>
+           </tr>         
+           <tr>
+              <td class="tdSpace"><label><strong>User:</strong></label></td>
+              <td><input id="txtUser" name="user" type="text" required readonly  class="inputStyle" 
+                readonly="item.Deleted" [(ngModel)]="item.UserName"></td>
+              <td>
+                  <button id="btnSearchUser" name="btnSearchUser" data-toggle="modal" 
+                  data-target="#exampleModal" [disabled]="item.Deleted"
+                      (click)="GetAllUsers()" style="height:30px;" class="btn btn-primary" type="button">Search</button>
+              </td>
+              
+           </tr>
+           <tr>
+              <td class="tdSpace">
+                
+              </td>
+              <td>
+                      
+                    <input type="submit" class="btn btn-primary" 
+                    [disabled]="item.Deleted"  (click)=Update() id="btnUpdate"  
+                    name="Update" value="Update">
+                    &nbsp;&nbsp;
+                    <input type="button" class="btn btn-primary" 
+                    (click)='cancel()' name="Cancel" value="Cancel">
+                </td>
+            </tr>
+            <tr>
+                  <td colspan="2">
+                      <div>
+                        {{ message }}
+                      </div>
+                  </td>
+              </tr>
+         </table>
+       </form>
+       </div>
+  
+       <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <div>
+                      <input type="text" id="userInput" name="txtSearchName" style="width:500px" placeholder="Search..">
+                  </div>
+                  <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th>UserName</th>
+                          </tr>
+                      </thead>
+                      <tbody id="userTable">
+                          <tr *ngFor="let user of _users">
+                              <td>{{ user.FirstName }}</td>
+                              <td><button type="button" data-dismiss="modal" (click)=GetNames(user)>Select</button></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+     
+  
+  <!-- Modal -->
+  <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div>
+                  <input type="text" id="projectInput" name="txtSearchName" style="width:500px" placeholder="Search..">
+              </div>
+              <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th>Project Name</th>
+                      </tr>
+                  </thead>
+                  <tbody id="projectTable">
+                      <tr *ngFor="let project of _projects">
+                          <td>{{ project.ProjectName }}</td>
+                          <td><button type="button" data-dismiss="modal" (click)=GetProjects(project)>Select</button></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+  </div>
+  
+  
+  <!-- Modal -->
+  <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div>
+                  <input type="text" id="taskInput" name="txtSearchName" style="width:500px" placeholder="Search..">
+              </div>
+              <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th>Task Name</th>
+                      </tr>
+                  </thead>
+                  <tbody id="taskTable">
+                      <tr *ngFor="let task of _tasks">
+                          <td>{{ task.TaskName }}</td>
+                          <td><button type="button" data-dismiss="modal" (click)=GetTasks(task)>Select</button></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+  </div>
+  

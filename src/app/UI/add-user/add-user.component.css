@@ -1,0 +1,39 @@
+.taskManagerHeading
+{    
+    padding-left: 5px;
+}
+
+.ui-slider-input {
+    display : none !important;
+}
+
+.borderless
+{
+    border:none;
+}
+
+.table thead tr th, .table tbody tr td {
+    border: none;
+}
+
+.tdSpace
+{
+    width:125px;
+}
+
+.inputStyle
+{
+    width:250px;
+}
+
+.inputStyleForDD
+{
+    height: 25px;
+}
+
+.inputStyleColspan
+{
+    width:335px;
+}
+
+

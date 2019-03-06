@@ -1,0 +1,84 @@
+
+  <div>
+      <form name="userForm">
+       <table class="table borderless">
+         <tr>
+           <td class="tdSpace"><label><strong>First Name:</strong></label></td>
+           <td><input name="firstName" id="firstName" type="text" required  class="inputStyleColspan" [(ngModel)]="item.FirstName"></td>
+         </tr>
+         <tr>
+            <td class="tdSpace"><label><strong>Last Name:</strong></label></td>
+            <td><input name ="lastName" id="lastName" type="text" required  class="inputStyleColspan" [(ngModel)]="item.LastName"></td>
+          </tr>
+          <tr>
+              <td class="tdSpace"><label><strong>Employee ID:</strong></label></td>
+              <td><input name="EmployeeID" id="employeeID" type="text" required  class="inputStyle" [(ngModel)]="item.EmployeeId"></td>
+          </tr>
+          <tr>
+              <td class="tdSpace">
+                
+              </td>
+              <td>
+                  <button type="button" id="btnAdd" name="btnAdd" (click)="Insert(item)" class="btn btn-primary">{{ title }}</button>
+                  &nbsp;&nbsp;
+                  <button type="reset" id="btnReset" name="btnReset" (click)="Reset()" class="btn btn-primary">Reset</button>
+                </td>
+            </tr>
+       </table>
+
+       <hr>
+
+       <div class="container">
+            <table class="table table-borderless" style="width:0%">
+                <tr>
+                    <td>
+                        <input type="text" name="UserName" id="txtSearch" [(ngModel)]="SearchUserName" placeholder="Search..."
+                            style="width:650px">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="txtTask" style="width:200px">Sort By: </label> &nbsp;
+                        <button type="button" id="btnStartDate" (click)="SortFirstName()" class="btn btn-primary">First Name
+                            </button> &nbsp;
+                        <button type="button" id="btnEndDate" (click)="SortLastName()" class="btn btn-primary">Last Name
+                            </button> &nbsp;
+                        <button type="button" id="btnPriority" (click)="SortEmployeeId()" class="btn btn-primary">Employee ID</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+      <div class="container">
+            <table class="table" style="width:0%">
+                <tr *ngFor="let user of _UserGrid">
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="tdSpace"><label class="inputStyleColspan">First Name : {{ user.FirstName }} </label></td>
+                            </tr>
+                            <tr>
+                                <td class="tdSpace"><label class="inputStyleColspan">Last Name : {{ user.LastName }} </label></td>
+                            </tr>
+                            <tr>
+                                <td class="tdSpace"><label class="inputStyleColspan">Employee Id : {{ user.EmployeeId }} </label></td>
+                             </tr>
+                            
+                        </table>
+                        <hr>
+                    </td>                    
+                    <td>
+                        <button type="button" (click)="Update(user)" id="btnUpdate" class="btn btn-primary">Edit</button>
+                    </td>
+                    <td>
+                        <button type="button" (click)="Suspend()" id="btnSuspend" class="btn btn-primary">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+     
+
+     </form>
+     </div>
+   

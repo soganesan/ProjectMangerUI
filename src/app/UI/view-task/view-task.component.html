@@ -1,0 +1,55 @@
+
+<div>
+    <form name="userForm">
+     
+      <div class="container">
+        <table class="table table-borderless">
+            <tr>
+                  <label>Project:</label> &nbsp;
+                    <input type="text" name="ProjectName" id="txtSearch" [(ngModel)]="SearchProjectName" placeholder="Search..."
+                        style="width:500px">
+            </tr>
+            <tr>
+                <td>
+                    <label for="txtTask" style="width:100px">Sort By: </label> &nbsp;
+                    <button type="button" id="btnStartDate" class="btn btn-primary" (click)="SortStartDate()" style="width:100px;height:30px">Start
+                        Date</button> &nbsp;
+                    <button type="button" id="btnEndDate" class="btn btn-primary" (click)="SortEndDate()" style="width:100px;height:30px">End
+                        Date</button> &nbsp;
+                    <button type="button" id="btnPriority" class="btn btn-primary" (click)="SortPriority()" style="width:100px;height:30px">Priority</button>
+                    &nbsp;
+                    <button type="button" id="btnCompleted" class="btn btn-primary" (click)="SortCompleted()" style="width:100px;height:30px">Completed</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+      &nbsp;&nbsp;
+      
+
+      <div class="container">
+          <table class="table">
+              <tr>
+                  <th>Task</th>
+                  <th>Parent Task</th>
+                  <th>Priority</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th></th>
+                  <th></th>
+              </tr>
+              <tr *ngFor="let task of _TaskGrid">
+                          <td>  {{ task.TaskName }} </td>
+                          <td>  {{ task.ParentTask }} </td>
+                          <td>  {{ task.Priority }} </td>
+                          <td>  {{ task.StartDate }} </td>
+                          <td>  {{ task.EndDate }} </td>
+                          <td><button type="button" class="btn btn-primary" (click)=Update(task)>Edit Task</button> </td>
+        <td><button type="button" class="btn btn-primary" [disabled]="task.Deleted"  (click)=Delete(task.TaskId)>End Task</button> </td>
+              </tr>
+          </table>
+      </div>
+
+
+      </form>
+    </div>

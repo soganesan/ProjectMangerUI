@@ -1,0 +1,97 @@
+.taskManagerHeading
+{    
+    padding-left: 5px;
+}
+
+.ui-slider-input {
+    display : none !important;
+}
+
+.borderless
+{
+    border:none;
+}
+
+.table thead tr th, .table tbody tr td {
+    border: none;
+}
+
+.labelSpace
+{
+    width: 100px;
+}
+
+.labelSpace2
+{
+    width: 110px;
+    padding-left: 20px;
+}
+
+.labelSpace3
+{
+    width: 100px;
+    padding-left: 20px;
+}
+
+.parentTaskClass
+{
+    width:405px;
+}
+
+.rowOneSpace
+{
+    padding-bottom: 15px;
+}
+
+.rowTwoSpace
+{
+    padding-bottom: 15px;
+}
+
+
+
+
+
+
+.taskClass
+{
+    width:260px;
+}
+
+
+.priorityInputs
+{
+    width: 80px;
+}
+
+.taskInput
+{
+    width: 373px;
+}
+
+.priorityValue{
+    width:100px;
+}
+
+.priorityToTd
+{
+width: 132px;
+}
+
+.fixedSizeInput
+{
+    width: 180px;
+}
+
+
+.taskDetail
+{
+    width:320px;
+}
+
+.parentTaskLabel
+{
+    width:100px;
+}
+
+

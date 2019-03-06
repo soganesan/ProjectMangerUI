@@ -1,0 +1,165 @@
+<form id="ProjectForm" name="Project">
+    <div class="container">
+        <table class="table table-borderless" style="width:600px;">
+            <tr>
+                <td>
+                    <strong>Project:</strong>
+                </td>
+                <td>
+                    <input type="text" id="txtProject" 
+                     name="Project" [(ngModel)]="item.ProjectName" required style="width:550px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="checkbox" id="chkDate" [(ngModel)]="item.IsChecked" name="chkDate"> &nbsp;
+                    <label>Set Start Date and End Date</label> &nbsp;
+                    <input  type="datetime" id="txtStartDate"  [(ngModel)]="item.StartDate" [disabled]="!item.IsChecked" 
+                            name="StartDate"
+                            placeholder="Start Date" style="width:150px"> &nbsp;
+                    <input type="datetime" id="txtEndDate" [(ngModel)]="item.EndDate" [disabled]="!item.IsChecked" name="EndDate"
+                        placeholder="End Date" style="width:150px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Priority:</strong>
+                </td>
+                <td>
+
+                    <input type="range" id="txtPriority" name="Priority" min="0" max="30" step="1" value="0" style="width:550px"
+                        [(ngModel)]="item.Priority" class="slider" oninput="txtRange_Priority.value=txtPriority.value">
+                </td>
+                <td>
+                    <output id="txtRange_Priority"></output>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Manager:</strong>
+                </td>
+                <td>
+                    <input type="text" id="txtManager" name="Manager" [(ngModel)]="item.ManagerName" readonly required
+                        style="width:460px">
+                    &nbsp;
+                    <button id="btnSearchManager" name="btnSearchManager" data-toggle="modal" 
+                    data-target="#exampleModal"
+                        (click)="GetAllProjects()" style="height:30px;" class="btn btn-primary" type="button">Search</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:right">
+                    <button class="btn btn-primary" type="button" id="btnAdd" name="btnAdd" (click)="Insert(item)" 
+                    style="width:80px">{{ title }}</button>
+                    &nbsp;
+                    <button class="btn btn-primary" type="reset" id="btnReset" name="btnReset" (click)="Reset()" style="width:80px">Reset</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <table class="table table-borderless" style="width:0%">
+            <tr>
+                <td>
+                    <input type="text" name="ProjectName" id="txtSearch" [(ngModel)]="SearchProjectName" placeholder="Search..."
+                        style="width:650px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="txtTask" style="width:100px">Sort By: </label> &nbsp;
+                    <button type="button" id="btnStartDate" class="btn btn-primary" (click)="SortStartDate()" style="width:100px;height:30px">Start
+                        Date</button> &nbsp;
+                    <button type="button" id="btnEndDate" class="btn btn-primary" (click)="SortEndDate()" style="width:100px;height:30px">End
+                        Date</button> &nbsp;
+                    <button type="button" id="btnPriority" class="btn btn-primary" (click)="SortPriority()" style="width:100px;height:30px">Priority</button>
+                    &nbsp;
+                    <button type="button" id="btnCompleted" class="btn btn-primary" (click)="SortCompleted()" style="width:100px;height:30px">Completed</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <table class="table" style="width:700px; border: 1px solid grey;">
+            <tr *ngFor="let project of _projectGrid">
+                <td>
+                    <table>
+                        <tr>
+                            <td> Project : {{ project.ProjectName }} </td>
+                        </tr>
+                        <tr>
+                            <td>No of Tasks : {{ project.Count }} </td>
+                            <td style="padding-left:30px;">Completed : {{ project.CompletedCount }} </td>
+                        </tr>
+                        <tr>
+                            <td>Start Date : {{ project.StartDate | date : 'dd-MM-yyyy' }} </td>
+                            <td style="padding-left:30px;">End Date : {{ project.EndDate | date : 'dd-MM-yyyy' }} </td>
+                        </tr>
+                    </table>
+                    <hr>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                Priority
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ project.Priority }}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <button class="btn btn-primary" type="button" [disabled]="project.Deleted" (click)="Update(project)" id="btnUpdate">Update</button>
+                </td>
+                <td>
+                    <button class="btn btn-primary" type="button" [disabled]="project.Deleted" (click)=Suspend(project.ProjectId) id="btnSuspend">Suspend</button>
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input type="text" id="myInput" name="txtSearchName" style="width:500px" placeholder="Search..">
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ManagerName</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTable">
+                            <tr *ngFor="let user of _users">
+                                <td>{{ user.FirstName }}</td>
+                                <td><button type="button" data-dismiss="modal" (click)=GetNames(user)>Select</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
